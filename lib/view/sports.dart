@@ -4,8 +4,8 @@ import '../logic/cubit.dart';
 import '../logic/states.dart';
 import '../shared/components/components.dart';
 
-class ScienceScreen extends StatelessWidget {
-  const ScienceScreen({Key? key}) : super(key: key);
+class SportScreen extends StatelessWidget {
+  const SportScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +15,15 @@ class ScienceScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          body: cubit.scienceArticle == null
+          body: cubit.sportArticle == null
               ? Center(child: CircularProgressIndicator())
               : ListView.builder(
-                  itemCount: cubit.scienceArticle!.length,
+                  itemCount: cubit.sportArticle!.length,
                   itemBuilder:
                       (BuildContext context,
                           int index) {
                     return articlesListBuilder(
-                        cubit.scienceArticle![index],
+                        cubit.sportArticle![index],
                         context);
                   },
                 ),

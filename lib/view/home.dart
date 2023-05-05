@@ -1,50 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:news/logic/cubit.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../logic/cubit.dart';
 import '../logic/states.dart';
+import 'sidePanel.dart';
 
 class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var cubit = NewsCubit.get(context);
-    cubit.getTech();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Newsaily',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 1
+    
+    NewsCubit cubit = NewsCubit.get(context);
+    cubit..fetchAllArticle()
+    ..fetchTechArticle()
+    ..fetchEconomyArticle()
+    ..fetchScienceArticle()
+    ..fetchSportArticle();
+
+    return BlocConsumer<NewsCubit, NewsState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Scaffold(
+          drawer: Drawer(
+            child: SidePanel(),
           ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.search,
-            color: Colors.white,
-            size: 30,),
+          appBar: AppBar(
+            title: const Text(
+              'News',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 1),
+            ),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+            ],
           ),
-          IconButton(
-            onPressed: () => cubit.changeAppMode(),
-            icon: Icon(Icons.brightness_6,
-            color: Colors.white,
-            size: 30,),
+          bottomNavigationBar:
+              BottomNavigationBar(
+            items: cubit.NavBarItems,
+            currentIndex: cubit.currentIndex,
+            onTap: (index) =>
+                cubit.changeNavBar(index),
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: cubit.NavBarItems,
-        currentIndex: cubit.currentIndex,
-        onTap: (index) {
-          cubit.changeNavBar(index);
-          cubit.getTech();
-          cubit.getbusiness();
-          cubit.getScience();
-          cubit.getSports();
-        },
-      ),
-      body: cubit.Screens[cubit.currentIndex],
+          body: cubit.Screens[cubit.currentIndex],
+        );
+      },
     );
   }
 }

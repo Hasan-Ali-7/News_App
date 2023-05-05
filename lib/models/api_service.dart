@@ -10,7 +10,7 @@ class NewsApi {
 
   Future<List<Article>> fetchArticles({required String country, required String category}) async {
 
-    Uri apiUrl = Uri.parse('$baseUrl/top-headlines?country=$country&category=$category&apiKey=$apiKey');
+    Uri apiUrl = Uri.parse('$baseUrl/top-headlines?country=$country&category=$category&apiKey=$apiKey' );
     http.Response response = await http.get(apiUrl);
 
     if (response.statusCode == 200) {
@@ -24,7 +24,7 @@ class NewsApi {
     } 
 
     else {
-      print('statusCose is ${response.statusCode}');
+      print('statusCose is ${response.statusCode } country=$country&category=$category');
       return [];
     }
   }
