@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/shared/components/components.dart';
 import 'shared/cubit/cubit.dart';
-import 'shared/cubit/states.dart';
+import 'logic/states.dart';
 
 class tecno extends StatelessWidget {
   @override

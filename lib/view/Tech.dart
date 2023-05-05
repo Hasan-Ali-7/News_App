@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news/shared/cubit/cubit.dart';
+import 'package:news/logic/cubit.dart';
 import '../shared/components/components.dart';
 
 class TechScreen extends StatelessWidget {

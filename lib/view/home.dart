@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news/shared/cubit/cubit.dart';
+import 'package:news/logic/cubit.dart';
 
-import '../shared/cubit/states.dart';
+import '../logic/states.dart';
 
 class homeScreen extends StatelessWidget {
   @override

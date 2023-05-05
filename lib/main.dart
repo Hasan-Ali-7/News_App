@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news/screens/home.dart';
-import 'shared/cubit/cubit.dart';
-import 'shared/cubit/states.dart';
+import 'package:news/view/home.dart';
+import 'logic/cubit.dart';
+import 'logic/states.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
+            
             theme: ThemeData(
                 primarySwatch: Colors.deepOrange,
                 scaffoldBackgroundColor: Colors.white,
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
                   selectedItemColor: Colors.deepOrange,
                   elevation: 55,
                 )),
+            
             darkTheme: ThemeData(
                 primarySwatch: Colors.deepOrange,
                 scaffoldBackgroundColor: Colors.black,
@@ -71,9 +73,11 @@ class MyApp extends StatelessWidget {
                   unselectedItemColor: Colors.white,
                   elevation: 55,
                 )),
+            
             themeMode: NewsCubit.get(context).isDark
                 ? ThemeMode.dark
                 : ThemeMode.light,
+            
             home: homeScreen(),
           );
         },

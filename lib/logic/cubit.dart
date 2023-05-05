@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news/logic/states.dart';
-import '../../models/ht.dart';
-import '../../view/Tech.dart';
-import '../../screens/business.dart';
-import '../../view/Science.dart';
-import '../../view/Sport.dart';
+import '../models/ht.dart';
+import '../view/Tech.dart';
+import '../screens/business.dart';
+import '../view/Science.dart';
+import '../view/Sport.dart';
 
 class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(InitialState());
