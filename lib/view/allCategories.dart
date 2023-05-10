@@ -29,4 +29,5 @@ class AllScreen extends StatelessWidget {
       },
     );
   }
+
 }

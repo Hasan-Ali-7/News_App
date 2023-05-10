@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news/view/home.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'logic/cubit.dart';
 import 'logic/states.dart';
+import 'shared/cache/hive.dart';
+import 'test.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox('hiveBox');
   runApp(const MyApp());
 }
 
@@ -19,29 +24,40 @@ class MyApp extends StatelessWidget {
       child: BlocConsumer<NewsCubit, NewsState>(
         listener: (context, state) {},
         builder: (context, state) {
+
+          NewsCubit cubit = NewsCubit.get(context);
+          bool? hive_mode = HiveMethods().get('darkMode');
+          cubit.isDark = hive_mode ?? false;
+          
+          // cubit
+          //   ..fetchAllArticle()
+          //   ..fetchTechArticle()
+          //   ..fetchEconomyArticle()
+          //   ..fetchScienceArticle()
+          //   ..fetchSportArticle();
+
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             
             theme: ThemeData(
                 primarySwatch: Colors.deepOrange,
-                scaffoldBackgroundColor: Colors.white,
-                appBarTheme: AppBarTheme(
+                scaffoldBackgroundColor: Colors.grey[300],
+                appBarTheme:const AppBarTheme(
                   backgroundColor: Color.fromARGB(255, 230, 102, 27),
                   systemOverlayStyle: SystemUiOverlayStyle(
                     statusBarColor: Color.fromARGB(255, 230, 102, 27),
                     statusBarIconBrightness: Brightness.light,
                   ),
                   titleTextStyle: TextStyle(
-                    color: Colors.black,
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
                   iconTheme: IconThemeData(
-                    color: Colors.black,
                     size: 35,
+                    color: Colors.white
                   ),
                 ),
-                bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                bottomNavigationBarTheme:const  BottomNavigationBarThemeData(
                   type: BottomNavigationBarType.fixed,
                   selectedItemColor: Colors.deepOrange,
                   elevation: 55,
@@ -50,20 +66,19 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeData(
                 primarySwatch: Colors.deepOrange,
                 scaffoldBackgroundColor: Colors.black,
-                appBarTheme: AppBarTheme(
+                appBarTheme: const AppBarTheme(
                   backgroundColor: Color.fromARGB(255, 230, 102, 27),
                   systemOverlayStyle: SystemUiOverlayStyle(
                     statusBarColor: Color.fromARGB(255, 230, 102, 27),
                     statusBarIconBrightness: Brightness.light,
                   ),
                   titleTextStyle: TextStyle(
-                    color: Colors.black,
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
                   iconTheme: IconThemeData(
-                    color: Colors.black,
                     size: 35,
+                    color: Colors.white
                   ),
                 ),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -74,11 +89,11 @@ class MyApp extends StatelessWidget {
                   elevation: 55,
                 )),
             
-            themeMode: NewsCubit.get(context).isDark
+            themeMode: cubit.isDark
                 ? ThemeMode.dark
                 : ThemeMode.light,
             
-            home: homeScreen(),
+            home: Test(),
           );
         },
       ),

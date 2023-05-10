@@ -8,16 +8,17 @@ import '../view/tech.dart';
 import '../view/science.dart';
 import '../view/sports.dart';
 import '../view/allCategories.dart';
+import '../shared/cache/hive.dart';
 
 class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(InitialState());
-  static NewsCubit get(context) =>
-      BlocProvider.of(context);
+  static NewsCubit get(context) => BlocProvider.of(context);
 
   bool isDark = false;
   void changeAppMode() {
     isDark = !isDark;
     emit(changeAppModeState());
+    HiveMethods().put('darkMode', isDark);
   }
 
   int currentIndex = 0;
@@ -114,4 +115,5 @@ class NewsCubit extends Cubit<NewsState> {
     );
     emit(GetSportNews());
   }
+
 }
