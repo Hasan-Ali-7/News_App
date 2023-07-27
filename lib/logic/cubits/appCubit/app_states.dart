@@ -5,6 +5,8 @@ class AppInitialState extends AppState {}
 
 class ChangeAppModeState extends AppState {}
 
+class BottomNavBarState extends AppState {}
+
 class ShowAllNewsLoading extends AppState {}
 
 class ShowAllNewsSuccess extends AppState {}

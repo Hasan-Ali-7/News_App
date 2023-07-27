@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../logic/cubits/app_cubit.dart';
 import '../constants/constants.dart';
+import '../logic/cubits/appCubit/app_cubit.dart';
 
 class CostumeAppBar extends StatelessWidget {
 
