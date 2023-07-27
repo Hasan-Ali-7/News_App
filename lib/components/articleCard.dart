@@ -8,7 +8,7 @@ Widget articleCardBuilder({ required Article article, required context}) => Gest
   onTap: () => Navigator.push(
     context, 
     MaterialPageRoute(
-      builder: (context) => WebViewContainer(article.articleURL ?? 'https://www.google.com'),
+      builder: (context) => WebViewContainer(articleURL: article.articleURL ?? 'https://www.google.com',),
     )
   ),
   child: Container(

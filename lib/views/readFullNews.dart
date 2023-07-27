@@ -1,36 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:News/logic/models/article.dart';
 
 class WebViewContainer extends StatefulWidget {
-  final url;
-  WebViewContainer(this.url);
+  const WebViewContainer({required this.articleURL, super.key}); // MODIFY
+
+  final String articleURL;                        // ADD
+
   @override
-  createState() => _WebViewContainerState(this.url);
+  State<WebViewContainer> createState() => _WebViewContainerState();
 }
 class _WebViewContainerState extends State<WebViewContainer> {
+  var loadingPercentage = 0;
+  // REMOVE the controller that was here
 
-  var _url;
-  final _key = UniqueKey();
-  _WebViewContainerState(this._url);
+  @override
+  void initState() {
+    super.initState();
+    // Modify from here...
+    controller.setNavigationDelegate(
+      NavigationDelegate(
+        onPageStarted: (url) {
+          setState(() {
+            loadingPercentage = 0;
+          });
+        },
+        onProgress: (progress) {
+          setState(() {
+            loadingPercentage = progress;
+          });
+        },
+        onPageFinished: (url) {
+          setState(() {
+            loadingPercentage = 100;
+          });
+        },
+      ),
+    );
+    // ...to here.
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Expanded(
-              child: WebViewWidget(
-                controller: controller,
-                key: _key, 
-              )
-            )
-          ],
+    return Stack(
+      children: [
+        WebViewWidget(
+          controller: controller,                     // MODIFY
         ),
-      )
+        if (loadingPercentage < 100)
+          LinearProgressIndicator(
+            value: loadingPercentage / 100.0,
+          ),
+      ],
     );
   }
-}
 
 WebViewController controller = WebViewController()
   ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -52,3 +75,5 @@ WebViewController controller = WebViewController()
     ),
   )
   ..loadRequest(Uri.parse('https://flutter.dev'));
+
+}
